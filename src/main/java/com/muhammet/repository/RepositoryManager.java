@@ -136,9 +136,19 @@ public class RepositoryManager<T, ID> implements ICrud<T,ID> {
         }
     }
 
-    @Override
+
+    /**
+     * Java Reflections - Terine mühendislik,
+     * Bir java sınıfını içerisine girerek, sadece değişkenlerin değerini değil, değişkenlerin
+     * adlarını ve türlerini alabileceğimiz bir yapıdır.
+     *
+     * @param entity
+     * @return
+     */
+@Override
     public List<T> findAllEntity(T entity) {
         List<T> list;
+
         Class<?> clazz = entity.getClass();
         Field[] fields = clazz.getDeclaredFields();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
