@@ -4,7 +4,7 @@
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
 
-    <persistence-unit name="criteria_example">
+    <persistence-unit name="film">
         <description>
             Persistence unit for Hibernate User Guide
         </description>
