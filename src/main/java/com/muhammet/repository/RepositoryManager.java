@@ -65,6 +65,7 @@ public class RepositoryManager<T, ID> implements ICrud<T,ID> {
 
     @Override
     public Optional<T> findById(ID id) {
+        openSession();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = (CriteriaQuery<T>) criteriaBuilder.createQuery(t.getClass()); // select * from tblsecmen where id=? ->
         Root<T> root = (Root<T>) criteriaQuery.from(t.getClass());
@@ -73,6 +74,7 @@ public class RepositoryManager<T, ID> implements ICrud<T,ID> {
         T t1;
         try{
             t1 =  em.createQuery(criteriaQuery).getSingleResult();
+            closeSession();
             return Optional.of(t1);
         }catch (NoResultException exception){
             return Optional.empty();
@@ -81,6 +83,7 @@ public class RepositoryManager<T, ID> implements ICrud<T,ID> {
 
     @Override
     public boolean existById(ID id) {
+        openSession();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = (CriteriaQuery<T>) criteriaBuilder.createQuery(t.getClass()); // select * from tblsecmen where id=? ->
         Root<T> root = (Root<T>) criteriaQuery.from(t.getClass());
@@ -88,6 +91,7 @@ public class RepositoryManager<T, ID> implements ICrud<T,ID> {
         criteriaQuery.where(criteriaBuilder.equal(root.get("id"),id));
         try{
             em.createQuery(criteriaQuery).getSingleResult();
+            closeSession();
             return true;
         }catch (NoResultException exception){
             return false;
@@ -108,16 +112,20 @@ public class RepositoryManager<T, ID> implements ICrud<T,ID> {
 
     @Override
     public List<T> findAllColumnAndValue(String columnName, Object value) {
+        openSession();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = (CriteriaQuery<T>) criteriaBuilder.createQuery(t.getClass()); // select * from tblsecmen where id=? ->
         Root<T> root = (Root<T>) criteriaQuery.from(t.getClass());
         criteriaQuery.select(root);
         criteriaQuery.where(criteriaBuilder.equal(root.get(columnName),value));
-        return em.createQuery(criteriaQuery).getResultList();
+        List<T> result = em.createQuery(criteriaQuery).getResultList();
+        closeSession();
+        return result;
     }
 
     @Override
     public void deleteById(ID id) {
+        openSession();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = (CriteriaQuery<T>) criteriaBuilder.createQuery(t.getClass()); // select * from tblsecmen where id=? ->
         Root<T> root = (Root<T>) criteriaQuery.from(t.getClass());
@@ -177,6 +185,7 @@ public class RepositoryManager<T, ID> implements ICrud<T,ID> {
         }
         criteriaQuery.where(predicateList.toArray(new Predicate[]{}));
         list = em.createQuery(criteriaQuery).getResultList();
+        closeSession();
         return list;
     }
 }
