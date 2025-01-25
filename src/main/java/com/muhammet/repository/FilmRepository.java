@@ -1,4 +1,10 @@
 package com.muhammet.repository;
 
-public class FilmRepository {
+import com.muhammet.entity.Artist;
+import com.muhammet.entity.Film;
+
+public class FilmRepository extends RepositoryManager<Film,Long>{
+    public FilmRepository() {
+        super(new Film());
+    }
 }

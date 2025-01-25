@@ -31,7 +31,7 @@
                       value="root" />
 <!--        Hibernate yazıdığı SQL komutlarını göstersin mi?-->
             <property name="hibernate.show_sql"
-                      value="true" />
+                      value="false" />
 <!--        Hibernate DB deki tabloları nasıl yönetsin karar veriyoruz.
             create -> Eğer DB de tablolar yok ise oluştur ve her seferinde yeniden oluştur.
             create-drop -> DB de tablo oluştur ve uygulamayı kapatınca(Connection close )

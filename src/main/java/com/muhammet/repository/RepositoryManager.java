@@ -96,11 +96,14 @@ public class RepositoryManager<T, ID> implements ICrud<T,ID> {
 
     @Override
     public List<T> findAll() {
+        openSession();
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = (CriteriaQuery<T>) criteriaBuilder.createQuery(t.getClass()); // select * from tblsecmen where id=? ->
         Root<T> root = (Root<T>) criteriaQuery.from(t.getClass());
         criteriaQuery.select(root);
-        return em.createQuery(criteriaQuery).getResultList();
+        List<T> result = em.createQuery(criteriaQuery).getResultList();
+        closeSession();
+        return result;
     }
 
     @Override
