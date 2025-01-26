@@ -27,6 +27,22 @@ public class Artist {
     String biyografi;
     Integer kariyerYili;
     Integer filmDiziAdedi;
-    @ManyToMany
+    @ManyToMany(mappedBy = "artistList")
     List<Film> filmList;
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Artist{");
+        sb.append("id=").append(id);
+        sb.append(", ad='").append(ad).append('\'');
+        sb.append(", adres='").append(adres).append('\'');
+        sb.append(", dogumTarihi=").append(dogumTarihi);
+        sb.append(", yas=").append(yas);
+        sb.append(", avatar='").append(avatar).append('\'');
+        sb.append(", biyografi='").append(biyografi).append('\'');
+        sb.append(", kariyerYili=").append(kariyerYili);
+        sb.append(", filmDiziAdedi=").append(filmDiziAdedi);
+        sb.append('}');
+        return sb.toString();
+    }
 }

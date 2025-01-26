@@ -24,7 +24,7 @@ public class Film {
     String yonetmenAdi;
     Long yonetmenId;
     String senarist;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     List<Artist> artistList;
     Integer puan;
     Tur tur;

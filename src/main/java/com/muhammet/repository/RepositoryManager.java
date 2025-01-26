@@ -42,6 +42,7 @@ public class RepositoryManager<T, ID> implements ICrud<T,ID> {
             em.persist(entity);
             closeSession();
         }catch (Exception exception){
+            System.out.println("Error while saving " + exception);
             if (em.isOpen())
                 closeSession();
         }
